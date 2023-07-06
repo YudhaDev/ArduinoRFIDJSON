@@ -18,7 +18,7 @@ void setup() {
   for (byte i = 0; i < 6; i++) {
     key.keyByte[i] = 0xFF;
   }
-  dump_byte_array(key.keyByte, MFRC522::MF_KEY_SIZE);
+  dump_byte_array(key.keyByte, MFRC522::MF_KEY_SIZE, doc);
 }
 
 void loop() {
@@ -47,7 +47,7 @@ void loop() {
   */
 }
 
-void dump_byte_array(byte *buffer, byte bufferSize, JsonDocument doc) {
+void dump_byte_array(byte *buffer, byte bufferSize, StaticJsonDocument<200> doc) {
     /*for (byte i = 0; i < bufferSize; i++) {
         Serial.print(buffer[i] < 0x10 ? " 0" : " ");
         Serial.print(buffer[i], HEX);
@@ -58,6 +58,6 @@ void dump_byte_array(byte *buffer, byte bufferSize, JsonDocument doc) {
         doc["rfid_serial"] = (buffer[i], HEX);
     }
     doc["scan_number"] = 1;
-    serializeJson(doc, Serial)
+    serializeJson(doc, Serial);
     delay(2000);
 }
