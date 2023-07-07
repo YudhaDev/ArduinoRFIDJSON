@@ -14,11 +14,11 @@ void setup() {
   Serial.begin(9600);
   SPI.begin();
   mfrc522.PCD_Init();
-  Serial.println("Awaiting for a card");
-  for (byte i = 0; i < 6; i++) {
-    key.keyByte[i] = 0xFF;
-  }
-  dump_byte_array(key.keyByte, MFRC522::MF_KEY_SIZE, doc);
+  //Serial.println("Awaiting for a card");
+  //for (byte i = 0; i < 6; i++) {
+  //  key.keyByte[i] = 0xFF;
+  //}
+  //dump_byte_array(key.keyByte, MFRC522::MF_KEY_SIZE, doc);
 }
 
 void loop() {
@@ -33,7 +33,7 @@ void loop() {
     return;
   }
 
-  dump_byte_array(mfrc522.uid.uidByte, mfrc522.uid.size, doc);
+  dump_byte_array(mfrc522.uid.uidByte, mfrc522.uid.size);
   
   /*String cardSerial = "";
   Serial.println(mfrc522.uid.size);
@@ -47,11 +47,11 @@ void loop() {
   */
 }
 
-void dump_byte_array(byte *buffer, byte bufferSize, StaticJsonDocument<200> doc) {
-    /*for (byte i = 0; i < bufferSize; i++) {
+/*void dump_byte_array_loop(byte *buffer, byte bufferSize) {
+    for (byte i = 0; i < bufferSize; i++) {
         Serial.print(buffer[i] < 0x10 ? " 0" : " ");
         Serial.print(buffer[i], HEX);
-    }*/
+    }
 
     for (byte i = 0; i < bufferSize; i++) {
         doc["rfid_serial"] = (buffer[i] < 0x10 ? " 0" : " ");
@@ -59,5 +59,14 @@ void dump_byte_array(byte *buffer, byte bufferSize, StaticJsonDocument<200> doc)
     }
     doc["scan_number"] = 1;
     serializeJson(doc, Serial);
+    delay(2000);
+*/
+
+void dump_byte_array(byte *buffer, byte bufferSize) {
+    for (byte i = 0; i < bufferSize; i++) {
+        Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+        Serial.print(buffer[i], HEX);
+    }
+    Serial.println();
     delay(2000);
 }
