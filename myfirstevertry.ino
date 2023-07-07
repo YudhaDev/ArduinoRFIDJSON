@@ -68,5 +68,5 @@ void dump_byte_array(byte *buffer, byte bufferSize) {
         Serial.print(buffer[i], HEX);
     }
     Serial.println();
-    delay(2000);
+    delay(250);
 }
