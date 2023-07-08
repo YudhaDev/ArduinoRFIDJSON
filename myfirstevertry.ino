@@ -22,9 +22,11 @@ void setup() {
 }
 
 void loop() {
+  delay(2000);
   // put your main code here, to run repeatedly:
   //check jika ada kartu atau nggk jangkauan sensor
   if (!mfrc522.PICC_IsNewCardPresent()){
+    Serial.println("null");
     return;
   }
 
@@ -68,5 +70,4 @@ void dump_byte_array(byte *buffer, byte bufferSize) {
         Serial.print(buffer[i], HEX);
     }
     Serial.println();
-    delay(250);
 }
