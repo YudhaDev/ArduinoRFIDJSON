@@ -19,23 +19,59 @@ void setup() {
   //  key.keyByte[i] = 0xFF;
   //}
   //dump_byte_array(key.keyByte, MFRC522::MF_KEY_SIZE, doc);
+  pinMode(13, OUTPUT); // Hijau
+  pinMode(33, OUTPUT); // Merah
+  pinMode(27, OUTPUT); // Kuning
+
 }
 
 void loop() {
-  delay(2000);
+  delay(500);
+
+  if(Serial.available()>0){
+    char command = Serial.read();
+    if (command == 'RT') {
+      digitalWrite(33, HIGH);
+    } else if (command == 'RF') {
+      digitalWrite(33, LOW);
+    } else if (command == 'YT') {
+      digitalWrite(27, HIGH);
+    } else if (command == 'YF' ) {
+      digitalWrite(27, LOW);
+    } else if (command == 'GT') {
+      digitalWrite(13, HIGH);
+    } else if (command == 'GF') {
+      digitalWrite(13, LOW);
+    }
+  }
+
+  // mencoba-coba
+  // digitalWrite(13, HIGH);
+  // digitalWrite(33, HIGH);
+  // digitalWrite(27, HIGH);
+
   // put your main code here, to run repeatedly:
   //check jika ada kartu atau nggk jangkauan sensor
   if (!mfrc522.PICC_IsNewCardPresent()){
-    Serial.println("null");
-    return;
+    //Serial.println("null");
+    //return;
   }
 
   //check jika dapat membaca serial number
   if (!mfrc522.PICC_ReadCardSerial()){
-    return;
+    //return;
   }
 
-  dump_byte_array(mfrc522.uid.uidByte, mfrc522.uid.size);
+  if (!mfrc522.uid.size == 0){
+    //Serial.println(mfrc522.uid.size);
+    dump_byte_array(mfrc522.uid.uidByte, mfrc522.uid.size);
+    mfrc522.uid.size = 0;
+  } else {
+    Serial.println("0");
+  }
+  
+
+  //dump_byte_array(mfrc522.uid.uidByte, mfrc522.uid.size);
   
   /*String cardSerial = "";
   Serial.println(mfrc522.uid.size);
