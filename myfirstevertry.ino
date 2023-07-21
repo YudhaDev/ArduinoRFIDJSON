@@ -30,17 +30,22 @@ void loop() {
 
   if(Serial.available()>0){
     char command = Serial.read();
-    if (command == 'R') {
+    if (command == '1') {
       digitalWrite(33, HIGH);
-    } else if (command == 'r') {
+    } 
+    if (command == '2') {
       digitalWrite(33, LOW);
-    } else if (command == 'Y') {
+    } 
+    if (command == '3') {
       digitalWrite(27, HIGH);
-    } else if (command == 'y' ) {
+    } 
+    if (command == '4' ) {
       digitalWrite(27, LOW);
-    } else if (command == 'G') {
+    } 
+    if (command == '5') {
       digitalWrite(13, HIGH);
-    } else if (command == 'g') {
+    } 
+    if (command == '6') {
       digitalWrite(13, LOW);
     }
   }
