@@ -3,10 +3,12 @@
 #include <ArduinoJson.h>
 
 #define SDA_PIN 5
-#define RST_PIN 22
+#define RST_PIN 22 
 
 MFRC522 mfrc522(SDA_PIN, RST_PIN);
 MFRC522::MIFARE_Key key;
+
+const int pinBuzzer = 2;
 
 void setup() {
   // put your setup code here, to run once:
@@ -22,6 +24,7 @@ void setup() {
   pinMode(13, OUTPUT); // Hijau
   pinMode(33, OUTPUT); // Merah
   pinMode(27, OUTPUT); // Kuning
+  pinMode(pinBuzzer, OUTPUT); // Buzzer
 
 }
 
@@ -47,6 +50,12 @@ void loop() {
     } 
     if (command == '6') {
       digitalWrite(13, LOW);
+    }
+    if (command == '7') {
+      tone(pinBuzzer, 1000);
+    }
+    if (command == '8') {
+      noTone(pinBuzzer);
     }
   }
 
