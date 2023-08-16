@@ -2,8 +2,8 @@
 #include <SPI.h>
 #include <ArduinoJson.h>
 
-#define SDA_PIN 5
-#define RST_PIN 22 
+#define SDA_PIN 4
+#define RST_PIN 2 
 
 MFRC522 mfrc522(SDA_PIN, RST_PIN);
 MFRC522::MIFARE_Key key;
@@ -25,7 +25,6 @@ void setup() {
   pinMode(33, OUTPUT); // Merah
   pinMode(27, OUTPUT); // Kuning
   pinMode(pinBuzzer, OUTPUT); // Buzzer
-
 }
 
 void loop() {
@@ -57,6 +56,9 @@ void loop() {
     if (command == '8') {
       noTone(pinBuzzer);
     }
+    if (command == '0') { // restart ESP(Software)
+      ESP.restart();
+    }
   }
 
   // mencoba-coba
@@ -80,6 +82,7 @@ void loop() {
     //Serial.println(mfrc522.uid.size);
     dump_byte_array(mfrc522.uid.uidByte, mfrc522.uid.size);
     mfrc522.uid.size = 0;
+    // ESP.restart();
   } else {
     Serial.println("0");
   }
